@@ -1,4 +1,4 @@
-#1. 데이터 2개에서 3개
+#1. 데이터 2개에서 1개
 import numpy as np
 x1 = np.array([range(1, 101), range(711,811), range(100)])
 x2 = np.array([range(4, 104), range(761,861), range(100)])
@@ -95,8 +95,8 @@ model = Model(inputs=[input1, input2], outputs=output1)
 
 #3. 컴파일, 훈련
 
-model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit([x1_train, x2_train], y1_train, epochs=100, batch_size=1, validation_split=0.25, verbose=1)
+model.compile(loss='mse', optimizer='adam', metrics=['acc'])
+model.fit([x1_train, x2_train], y1_train, epochs=100, batch_size=1, validation_split=0.25, verbose=2)
 
 #4. 평가 예측
 result = model.evaluate([x1_test, x2_test], y1_test, batch_size=1)
