@@ -58,3 +58,5 @@ print(y_predict)
 loss, mse = model.evaluate(x, batch_size=1)
 print("loss : ", loss)
 print("mse : ", mse)
+
+

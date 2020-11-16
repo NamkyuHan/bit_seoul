@@ -114,5 +114,8 @@ print("mse : ", mse)
 # plt.legend(['train loss', 'val loss', 'train mae', 'val mae'])
 # plt.show()
 
+# 학원 기준
+# d:
+# cd study
 #dir/w
 #tensorboard --logdir=.
