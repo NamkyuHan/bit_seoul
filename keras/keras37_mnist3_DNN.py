@@ -79,7 +79,6 @@ print("acc : ", acc)
 # 이미 우리는 train, test로 나눠서 x,y 둘다 훈련을 시켰음
 # y_predict로 변수 선언하고 model.predict를 활용해서 예측한다 (x_test의 값을 가지고)  
 y_predict = model.predict(x_predict)
-print(y_predict)
 y_predict_re = np.argmax(y_predict, axis=1)
 
 print("y_real : ", y_real)
@@ -95,4 +94,9 @@ y 값이 원핫 인코딩 되어있음
 이걸 원복 시켜야 한다
 
 실습 2. 모델 es적용 얼리스탑, 텐서보드도 넣을것
+
+loss :  0.2863274812698364
+acc :  0.9194999933242798
+y_real :  [7 2 1 0 4 1 4 9 5 9]
+y_predict_re :  [7 2 1 0 4 1 4 9 5 9]
 '''
