@@ -44,7 +44,7 @@ model.compile(loss='mse', optimizer='adam')
 
 early_stopping=EarlyStopping(monitor='loss', patience=50, mode='min')
 
-model.fit(x_train, y_train, epochs=10000, batch_size=1, validation_split=0.2 ,callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=500, batch_size=1, validation_split=0.2 ,callbacks=[early_stopping])
 
 y_predict=model.predict(x_test)
 
@@ -59,10 +59,11 @@ from sklearn.metrics import r2_score
 r2=r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
-
-
-
-
+'''
+RMSE :  51.99699243224366
+R2 :  0.41962224968545947
+안좋아
+'''
 '''
 import numpy as np
 from sklearn.datasets import load_diabetes

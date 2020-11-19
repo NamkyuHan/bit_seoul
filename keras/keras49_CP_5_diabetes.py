@@ -58,44 +58,39 @@ from sklearn.metrics import r2_score
 r2=r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
-'''
-RMSE 낮을수록
-R2 높을수록
-좋지않아!
-RMSE :  65.18791696423017
-R2 :  0.31069490684041434
-'''
+#시각화
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.subplot(2, 1, 1) #2행 1열 중 첫번째
+plt.plot(hist.history['loss'], marker='.', c='red')
+plt.plot(hist.history['val_loss'], marker='.', c='blue')
+plt.grid()
+
+plt.title('loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(loc='uper right')
+
+plt.subplot(2, 1, 2) #2행 1열 중 두번째
+plt.plot(hist.history['acc'], marker='.', c='red', label='loss')
+plt.plot(hist.history['val_acc'], marker='.', c='blue', label='val_loss')
+plt.grid()
+
+plt.title('acc')
+plt.ylabel('acc')
+plt.xlabel('epoch')
+plt.legend('acc', 'val_acc')
+
+plt.show
+
 
 '''
-import numpy as np
-from sklearn.datasets import load_diabetes
-dataset = load_diabetes()
+실습 1. test 데이터를 10개 가져와서 predict 만들것
+-원핫 인코딩을 원복할 것
+print('실제값 : ', y_real) 결과 : [3 4 5 2 9 1 3 9 0]
+print('예측값 : ', y_predict_re) 결과 : [3 4 5 2 9 1 3 9 1]
+y 값이 원핫 인코딩 되어있음
+이걸 원복 시켜야 한다
 
-x = dataset.data
-y = dataset.target
-
-from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.7, shuffle=True) # train size를 70%로 주고 내가 쓴 순서대로 잘려나간다
-# 성능은 셔플을 한게 더 좋다 디폴트는 true   
-
-x_predict = x_test[:10]
-y_real = y_test[:10]
-
-#x_train, x_predict 전처리
-from sklearn.preprocessing import MinMaxScaler
-scaler = MinMaxScaler()
-scaler.fit(x)
-x = scaler.transform(x)
-x_predict = scaler.transform(x_predict)
-
-print("x_data : ", x)
-print("y_target : ", y)
-print(x.shape) #(442, 10)
-print(y.shape) #(442,)
-print(x_train[0])
-
-# [  9.82349   0.       18.1       0.        0.671     6.794    98.8
-#    1.358    24.      666.       20.2     396.9      21.24   ]
-
-print(y_train[0]) #13.3
+실습 2. 모델 es적용 얼리스탑, 텐서보드도 넣을것
 '''

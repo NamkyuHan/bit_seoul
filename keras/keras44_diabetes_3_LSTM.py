@@ -48,11 +48,9 @@ model.compile(loss='mse', optimizer='adam')
 
 early_stopping=EarlyStopping(monitor='loss', patience=10, mode='min')
 
-model.fit(x_train, y_train, epochs=10000, batch_size=1, validation_split=0.2 ,callbacks=[early_stopping])
+model.fit(x_train, y_train, epochs=500, batch_size=1, validation_split=0.2 ,callbacks=[early_stopping])
 
 y_predict=model.predict(x_test)
-
-
 
 
 from sklearn.metrics import mean_squared_error 
@@ -65,7 +63,11 @@ from sklearn.metrics import r2_score
 r2=r2_score(y_test, y_predict)
 print("R2 : ", r2)
 
-
+'''
+RMSE :  68.44475072946005
+R2 :  0.12355105416656353
+아주 좋지 않아
+'''
 
 
 
