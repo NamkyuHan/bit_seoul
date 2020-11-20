@@ -87,7 +87,7 @@
 
 # model.summary()
 
-
+'''
 from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential, Model
@@ -140,7 +140,7 @@ y_predict=np.argmax(y_predict, axis=1)
 y_actually=np.argmax(y_test[:10, :], axis=1)
 print('실제값 : ', y_actually)
 print('예측값 : ', y_predict)
-
+'''
 '''
 cifar10 LSTM
 loss :  2.30287504196167
