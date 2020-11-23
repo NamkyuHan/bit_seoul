@@ -100,7 +100,7 @@ result = model.evaluate([x1_test, y1_test], y2_test,
 
 y_predict = model.predict([x1_test, y1_test])
 print("결과물 : ", y_predict)
-'''
+
 
 #2D를 선으로 쭉 펼친 데이터 모델.
 #3차원으로 구성되고 input_shape는 2차원 => LSTM과 동일
@@ -167,3 +167,4 @@ y_predict=model.predict(x_predict)
 
 print("y_predict :", y_predict)
 print("loss : ", loss)
+'''
