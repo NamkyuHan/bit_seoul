@@ -23,6 +23,7 @@ df2 = pd.read_csv('./data/csv/비트컴퓨터 1120.csv', header=0, index_col=Non
 # [1200 rows x 16 columns]
 # (1200, 16)
 
+
 # 오름차순 정렬
 df1 = df1.sort_values(['일자'], ascending=['True'])
 df2 = df2.sort_values(['일자'], ascending=['True'])

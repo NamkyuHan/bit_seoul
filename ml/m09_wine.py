@@ -12,6 +12,18 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 #1. 데이터
 x, y = load_wine(return_X_y=True)
 
+'''
+datasets = load_wine()
+print(datasets.feature_names)
+print(datasets.target_names)
+'''
+'''
+['alcohol', 'malic_acid', 'ash', 'alcalinity_of_ash', 'magnesium', 'total_phenols', 'flavanoids', 'nonflavanoid_phenols', 
+'proanthocyanins', 'color_intensity', 'hue', 'od280/od315_of_diluted_wines', 'proline']
+['class_0' 'class_1' 'class_2']
+'''
+
+
 x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=66, shuffle=True, train_size=0.8)
 
 scaler = StandardScaler()
