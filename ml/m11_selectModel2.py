@@ -38,3 +38,9 @@ for (name, algorithm) in allAlgorithms:
         pass
 
 # 원래 50여개의 모델이 나와야 하는데, 버전바뀌고 에러가 발생한다
+
+from sklearn.ensemble import GradientBoostingRegressor
+model2 = GradientBoostingRegressor()
+model2.fit(x_train, y_train)
+y_pred2 = model2.predict(x_test)
+print('GradientBoostingRegressor:', r2_score(y_test, y_pred2))
