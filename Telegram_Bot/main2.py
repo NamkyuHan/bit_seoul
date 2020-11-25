@@ -28,7 +28,9 @@ def handler(update, context):
     elif '자기야 사진 보내조' in text:
         context.bot.send_photo(chat_id=chat_id, photo=open('./img/한지민3.jpg', 'rb'))
         context.bot.send_message(chat_id=chat_id, text=emojize('나 이쁘지 자기야?:stuck_out_tongue_closed_eyes:', use_aliases=True))
-        
+    elif '보고싶어' in text:
+        context.bot.send_photo(chat_id=chat_id, photo=open('./img/한지민2.jfif', 'rb'))
+        context.bot.send_message(chat_id=chat_id, text=emojize('나두ㅜㅜ 일단 내 하트 보고 힘내:heart:', use_aliases=True))    
 
     
     else: 
