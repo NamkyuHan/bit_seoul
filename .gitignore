@@ -2,3 +2,5 @@ save/*
 model/*
 data/*
 img/*
+image_classifier/*
+font/*
