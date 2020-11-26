@@ -1,43 +1,62 @@
-# 과적합 방지
-# 1. 훈련데이터량을 늘린다
-# 2. 피처수를 줄인다
-# 3.
-
-from sklearn.datasets import load_boston
-from xgboost import XGBClassifier, XGBRegressor, plot_importance
-import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
-
-#회귀 모델
-boston = load_boston()
-
-x = boston.data
-y = boston.target
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=66, shuffle=True, test_size=0.2)
+from sklearn.metrics import accuracy_score, r2_score
+from sklearn.model_selection import train_test_split, KFold, cross_val_score, GridSearchCV, RandomizedSearchCV
+from xgboost import XGBClassifier, XGBRegressor, plot_importance
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
+import matplotlib.pyplot as plt
 
 
-n_estimators = 300
-learning_rate = 1
-colsample_bytree = 1
-colsample_bylevel = 1
+x, y=load_breast_cancer(return_X_y=True)
 
-max_depth = 5
-n_jobs = -1
+x_train, x_test, y_train, y_test=train_test_split(x, y, train_size=0.8)
 
-model = XGBRegressor(max_depth=max_depth, learning_rate=learning_rate,
-                    n_estimators=n_estimators, n_jobs=n_jobs,
-                    colsample_bylevel=colsample_bylevel,
-                    colsample_bytree=colsample_bytree)
 
-# score 디폴트로 했던놈과 성능 비교.
+parameters= [
+    {'xgbclassifier__n_estimators' : [100,200, 300],
+    'xgbclassifier__learning_rate' : [0.1,0.3,0.001,0.01],
+    'xgbclassifier__max_depth' : [4,5,6]}, 
+    {'xgbclassifier__n_estimators' : [100,200, 300],
+    'xgbclassifier__learning_rate' : [0.1, 0.001, 0.01],
+    'xgbclassifier__max_depth' : [4,5,6],
+    'xgbclassifier__colsample_bytree' :[0.6, 0.9, 1]},
+    {'xgbclassifier__n_estimators' : [90, 110],
+    'xgbclassifier__learning_rate' : [0.1, 0.001, 0.5],
+    'xgbclassifier__max_depth' : [4,5,6],
+    'xgbclassifier__colsample_bytree' :[0.6, 0.9, 1],
+    'xgbclassifier__colsample_bylevel' :[0.6, 0.7, 0.9]}
+] 
 
-model.fit(x_train, y_train)
+#2. 모델
+# pipe=Pipeline([("scaler", MinMaxScaler()), ('jin', XGBRegressor())])
+pipe=make_pipeline(MinMaxScaler(), XGBClassifier()) 
+model=RandomizedSearchCV(pipe, parameters, cv=5) 
 
-score = model.score(x_test, y_test)
-print("점수 : ", score)
-print(model.feature_importances_)
 
-plot_importance(model)
-plt.show()
+#3. 훈련
+model.fit(x_train, y_train) 
 
+#4. 평가, 예측
+print("최적의 매개변수 : ", model.best_estimator_)
+y_predict=model.predict(x_test)
+print('최종정답률 : ', accuracy_score(y_test, y_predict))
+
+'''
+최적의 매개변수 :  Pipeline(steps=[('minmaxscaler', MinMaxScaler()),
+                ('xgbclassifier',
+                 XGBClassifier(base_score=0.5, booster='gbtree',
+                               colsample_bylevel=1, colsample_bynode=1,
+                               colsample_bytree=0.6, gamma=0, gpu_id=-1,
+                               importance_type='gain',
+                               interaction_constraints='', learning_rate=0.1,
+                               max_delta_step=0, max_depth=4,
+                               min_child_weight=1, missing=nan,
+                               monotone_constraints='()', n_estimators=300,
+                               n_jobs=0, num_parallel_tree=1, random_state=0,
+                               reg_alpha=0, reg_lambda=1, scale_pos_weight=1,
+                               subsample=1, tree_method='exact',
+                               validate_parameters=1, verbosity=None))])
+최종정답률 :  0.9736842105263158
+'''
