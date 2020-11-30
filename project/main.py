@@ -17,7 +17,7 @@ font_name = fm.FontProperties(fname=font_path, size=50).get_name()
 plt.rc('font', family=font_name)
 
 
-# Big 5 Dataset Load
+# Big 5 데이터셋 로드
 pos_questions = [
     'OPN1', 'OPN3', 'OPN5', 'OPN7', 'OPN8', 'OPN9', 'OPN10',            # 7 Openness 개방성
     'CSN1', 'CSN3', 'CSN5', 'CSN7', 'CSN9', 'CSN10',                    # 6 Conscientiousness 성실성
@@ -43,6 +43,7 @@ print(df.head()) # [5 rows x 51 columns]
 
 
 # Drop Rows Contains 0
+# 0점인 칼럼 제외
 df = df.replace(0, np.nan).dropna(axis=0).reset_index(drop=True)
 
 print(len(df)) # 874366
@@ -50,6 +51,7 @@ print(df.head()) # [5 rows x 51 columns]
 
 
 # Filter Countries
+# 100명 이상이 답한 나라만 선정
 df_2 = (df.groupby('country').agg('count')['EXT1'] > 100).reset_index()
 
 fc = df_2[df_2['EXT1'] == True]['country']
@@ -60,6 +62,7 @@ print(df) # [872094 rows x 51 columns]
 
 
 # Positive Negative Scores
+# 가운데 점수를 0점으로 조정
 df[pos_questions] = df[pos_questions].replace({1:-2, 2:-1, 3:0, 4:1, 5:2})
 df[neg_questions] = df[neg_questions].replace({1:2, 2:1, 3:0, 4:-1, 5:-2})
 
@@ -67,6 +70,7 @@ print(df.head()) # [5 rows x 51 columns]
 
 
 # Compute Scores
+# 질문들을 하나의 항목으로 합치기
 traits = {
     'OPN' : '개방성',
     'CSN' : '성실성',
@@ -104,19 +108,21 @@ plt.show()
 fig = plt.figure(figsize=(16, 6))
 
 sns.distplot(df_traits[df_traits['country'] == 'KR']['개방성'], bins=40, axlabel=False)
-sns.distplot(df_traits[df_traits['country'] == 'IT']['개방성'], bins=40, axlabel=False)
+sns.distplot(df_traits[df_traits['country'] == 'FR']['개방성'], bins=40, axlabel=False)
 
-fig.legend(['한국', '이탈리아'])    
+fig.legend(['한국', '프랑스'])    
 plt.show()
 
 
-#Compute Mean by Countries
+# Compute Mean by Countries
+# 국가별 성격요소 평균
 df_traits_mean = df_traits.groupby('country').mean().rename_axis('country').reset_index()
 
 print(df_traits_mean) #[113 rows x 6 columns]
 
 
-#COVID-19 Dataset
+# COVID-19 Dataset
+# 코로나 데이터셋 불러오기
 df_covid = pd.read_csv('https://raw.githubusercontent.com/datasets/covid-19/master/data/time-series-19-covid-combined.csv', 
                         parse_dates=['Date'])
 
@@ -124,13 +130,15 @@ print(df_covid.head())
 print(df_covid.tail())
 
 
-#Country Code
+# Country Code
+# 국가코드 불러오기
 cc = pd.read_csv('./data/csv/country_code.csv')
 
 print(cc.head())
 
 
 # Filter Dataset Step 1
+# 최소 확진자 수 50명 이상
 df_covid = df_covid[df_covid['Confirmed'] > 50].reset_index(drop=True) 
 
 df_covid = df_covid.groupby(['Country/Region', 'Date']).sum().reset_index()
@@ -139,6 +147,7 @@ print(df_covid[df_covid['Country/Region'] == 'US']) # [269 rows x 5 columns]
 
 
 # Filter Dataset Step 2
+# 50명이 된 후 14일 이후
 n_days = 14
 
 filtered = (
@@ -155,6 +164,7 @@ print(df_covid_14days) # [180 rows x 5 columns]
 
 
 # Merge All
+# 국가코드 데이터, 성격데이터 병합
 df_covid_14days = df_covid_14days.merge(cc, left_on='Country/Region', right_on='Name')
 
 df_covid_14days = df_covid_14days.merge(df_traits_mean, left_on='Code', right_on='country')
@@ -163,6 +173,7 @@ print(df_covid_14days.sort_values('Confirmed', ascending=False)) # [96 rows x 13
 
 
 # Compute Pearson Correlation
+# 피어슨 상관 계수 구하기
 new_df = df_covid_14days[
     ~df_covid_14days['country'].isin(['CN', 'TR'])
 ]
@@ -183,3 +194,8 @@ for trait, trait_kor in traits.items():
 
 # print(new_df)
 plt.show()
+
+
+# Sort by Openness
+print("개방성 정렬 결과 : ", new_df.sort_values('개방성', ascending=False))
+
