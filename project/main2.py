@@ -63,7 +63,7 @@ fig.add_trace(
     )
 )
 
-fig
+fig.show()
 
 
 # Make dataframe for Facebook Prophet prediction model.
@@ -74,9 +74,6 @@ df_prophet = df_korea.rename(columns={
 })
 
 print(df_prophet.tail())
-
-
-
 
 
 # Make Prophet model including daily seasonality
@@ -96,6 +93,9 @@ m.fit(df_prophet)
 future = m.make_future_dataframe(periods=14)
 forecast = m.predict(future)
 
+fig = plot_plotly(m, forecast)
+py.iplot(fig)
+
 
 # display changepoints as red dotted line on the plot.
 # changepoint를 그래프에 반영해봅시다.
@@ -103,14 +103,7 @@ fig = m.plot(forecast)
 a = add_changepoints_to_plot(fig.gca(), m, forecast)
 
 
-fig = plot_plotly(m, forecast)
-py.iplot(fig)
 
-
-# display changepoints as red dotted line on the plot.
-# changepoint를 그래프에 반영해봅시다.
-# fig = m.plot(forecast)
-# a = add_changepoints_to_plot(fig.gca(), m, forecast)
 
 
 '''
