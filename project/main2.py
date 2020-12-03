@@ -42,9 +42,13 @@ df_korea =  pd.DataFrame(df_korea)
 df_korea = df_korea.reset_index().rename(columns={0: 'date', 1: 'confirmed'})
 df_korea = df_korea.drop("index", axis=1)
 
+print(df_korea)
+print(df_korea.shape)
 print(df_korea.tail())
+#[315 rows x 2 columns]
+#(315, 2)
 
-
+'''
 # 한국 코로나19 확진자 트렌드를 그래프 제작
 
 fig = go.Figure()
@@ -97,7 +101,7 @@ py.iplot(fig)
 # changepoint를 그래프에 반영해봅시다.
 fig = model.plot(forecast)
 a = add_changepoints_to_plot(fig.gca(), model, forecast)
-
+'''
 
 
 
