@@ -16,6 +16,7 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
+
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
 x=np.append(x_train, x_test, axis=0)

@@ -49,9 +49,9 @@ print(type(df_korea_x))
 print(type(df_korea_y))
 
 
-# scaler = MinMaxScaler()
-# scaler.fit(df_korea_x)
-# x = scaler.transform(df_korea_x)
+scaler = MinMaxScaler()
+scaler.fit(df_korea_x)
+x = scaler.transform(df_korea_x)
 
 df_korea_x=df_korea_x.astype('float32')
 df_korea_y=df_korea_y.astype('float32')
@@ -71,10 +71,10 @@ x_test = x_test.reshape(63, 2, 1)
 model=Sequential()
 model.add(LSTM(100, activation='relu', input_shape=(2, 1)))
 model.add(Dense(100, activation='relu'))
-model.add(Dropout(0.1))
-model.add(Dense(100, activation='relu'))
-model.add(Dropout(0.4))
-model.add(Dense(100, activation='relu'))
+# model.add(Dropout(0.1))
+# model.add(Dense(100, activation='relu'))
+# model.add(Dropout(0.4))
+# model.add(Dense(100, activation='relu'))
 model.add(Dense(1))
 
 #3. 컴파일, 훈련
