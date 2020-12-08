@@ -6,3 +6,5 @@ image_classifier/*
 font/*
 Crystalcube_slim/*
 graph/*
+haarcascades_cuda/*
+movie/*
