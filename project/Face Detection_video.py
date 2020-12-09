@@ -2,12 +2,13 @@ import numpy as np
 import cv2 # from cv2 import cv2 나는 이렇게 적어야 실행된다
 import matplotlib.pyplot as plt 
 import sys
+
 # %matplotlib inline
 
 #카메라 번호
 # /dev/video0 = 0
 # 이곳에 동영상 파일명의 위치를 넣어주면 동영상 재생으로 동작함
-CAM_ID = './movie/test.mkv'
+CAM_ID = './movie/startup.mp4'
 
 # 추적기능 상태
 #얼굴 인식
@@ -65,7 +66,7 @@ if __name__ == '__main__' :
     #얼굴인식 함수 생성
     face_cascade = cv2.CascadeClassifier()
     #얼굴인식용 haar 불러오기
-    face_cascade.load('./haarcascades_cuda/haarcascade_profileface.xml')
+    face_cascade.load('./haarcascades_cuda/haarcascade_frontalface_default.xml')
 
     #추적 상태 저장용 변수
     TrackingState = 0
@@ -88,7 +89,7 @@ if __name__ == '__main__' :
             #히스토그램 평활화(재분할)
             grayframe = cv2.equalizeHist(grayframe)
             #얼굴 인식
-            faces  = face_cascade.detectMultiScale(grayframe, 1.1, 5, 0, (50, 50))
+            faces  = face_cascade.detectMultiScale(grayframe, 1.8, 2, 0, (20, 50))
 
             #얼굴이 1개라도 잡혔다면
             if len(faces) > 0:

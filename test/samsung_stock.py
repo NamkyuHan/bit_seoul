@@ -6,7 +6,6 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from sklearn. preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from keras62_split2 import split_data
-
 #삼성전자
 df1 = pd.read_csv('./data/csv/삼성전자 1120.csv', header=0, index_col=None, sep=',', encoding='cp949' )
 
