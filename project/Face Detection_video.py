@@ -8,7 +8,7 @@ import sys
 #카메라 번호
 # /dev/video0 = 0
 # 이곳에 동영상 파일명의 위치를 넣어주면 동영상 재생으로 동작함
-CAM_ID = './movie/startup.mp4'
+CAM_ID = './movie/startup2.webm'
 
 # 추적기능 상태
 #얼굴 인식
@@ -89,7 +89,7 @@ if __name__ == '__main__' :
             #히스토그램 평활화(재분할)
             grayframe = cv2.equalizeHist(grayframe)
             #얼굴 인식
-            faces  = face_cascade.detectMultiScale(grayframe, 1.8, 2, 0, (20, 50))
+            faces  = face_cascade.detectMultiScale(grayframe, 1.8, 2, 0, (10, 20))
 
             #얼굴이 1개라도 잡혔다면
             if len(faces) > 0:

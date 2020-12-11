@@ -5,7 +5,7 @@ detector = dlib.get_frontal_face_detector()
 sp = dlib.shape_predictor('./project/models/shape_predictor_68_face_landmarks.dat')
 facerec = dlib.face_recognition_model_v1('./project/models/dlib_face_recognition_resnet_model_v1.dat')
 
-descs = np.load('./img/startup2.npy', allow_pickle=True)[()]
+descs = np.load('./project/face_Data/startup2.npy', allow_pickle=True)[()]
 
 def encode_face(img):
   dets = detector(img, 1)
@@ -19,7 +19,7 @@ def encode_face(img):
 
     return np.array(face_descriptor)
 
-video_path = './movie/startup.mp4'
+video_path = './movie/startup2.webm'
 cap = cv2.VideoCapture(video_path)
 
 if not cap.isOpened():
@@ -27,7 +27,7 @@ if not cap.isOpened():
 
 _, img_bgr = cap.read() # (800, 1920, 3)
 padding_size = 0
-resized_width = 300 #1920
+resized_width = 500 #1920
 video_size = (resized_width, int(img_bgr.shape[0] * resized_width // img_bgr.shape[1]))
 output_size = (resized_width, int(img_bgr.shape[0] * resized_width // img_bgr.shape[1] + padding_size * 2))
 

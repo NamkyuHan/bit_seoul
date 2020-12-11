@@ -50,17 +50,17 @@ def encode_faces(img, shapes):
 # # descs = {}
 # for i in range(len(find_namelist)): 
 #     img_paths[i] = './project/imgtest/'+str(i)+ '/' + str(i)+ '.jpg'
-#     # descs[i] = None
+#     descs["'"+i+"'"] = None
 # print(img_paths)
 
 
 img_paths = {
-    'suzy': './img/suzy.jpg',
-    'juhyuk': './img/juhyuk.jpg',
-    'hanna': './img/hanna.png',
-    'sunho': './img/sunho.png'
+    'suzy': './img/startup/suzy.jpg',
+    'juhyuk': './img/startup/juhyuk.jpg',
+    'hanna': './img/startup/hanna.png',
+    'sunho': './img/startup/sunho.png'
 }
-# print(img_paths.items())
+print(img_paths.items())
     
 # descs = {
 #     'neo': None,
@@ -99,7 +99,7 @@ for name, img_path in img_paths.items():
     print(descs[name])
 
 
-np.save('./img/startup2.npy', descs)
+np.save('./project/face_Data/startup.npy', descs)
 print(descs)  
 
 
