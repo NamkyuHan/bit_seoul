@@ -8,3 +8,8 @@ Crystalcube_slim/*
 graph/*
 haarcascades_cuda/*
 movie/*
+tmp/*
+tf_cert_ practice/*
+tf/*
+test/*
+.idea/*

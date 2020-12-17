@@ -17,7 +17,7 @@ class FaceRecog():
         self.known_face_names = []
 
         # Load sample pictures and learn how to recognize it.
-        dirname = 'knowns'
+        dirname = './face_recognition/knowns'
         files = os.listdir(dirname)
         for filename in files:
             name, ext = os.path.splitext(filename)
